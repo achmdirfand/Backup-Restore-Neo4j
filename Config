@@ -1,0 +1,319 @@
+1. CREATE DATABASE
+
+CREATE DATABASE <database-name>
+
+CREATE USER <user-name>
+  SET PASSWORD "<password>"
+  SET PASSWORD CHANGE NOT REQUIRED
+  SET STATUS ACTIVE
+  SET HOME DATABASE <database-name>;
+
+GRANT ROLE architect TO <username>;
+
+
+
+2. POPULATE DATA
+
+Run dataimporter to populate database: https://data-importer.graphapp.io/ 
+
+Or
+Populate with sample movie database by running following command:
+
+:play movie graph
+
+
+It will show a Movie Graph browser guide. Execute the code block to populate the database
+
+
+
+3. BACKUP
+
+Database Name: bak1
+Backup Folder: /mnt/neo4j/backups
+
+
+Go to Server 1
+$ ssh -i <path-to-key>/demo demo@<ip>
+
+
+Work as user neo4j
+$ sudo su - neo4j
+
+
+Create backups folder if not created yet.
+$ mkdir /mnt/neo4j/backups
+
+
+Go to neo4j HOME
+$ cd /home/neo4j
+
+
+3.1 ONLINE BACKUP
+
+A. Run initial backup
+$ ./neo4j-admin backup --backup-dir=/mnt/neo4j/backups --database=initialdata
+
+
+Output:
+neo4j@demo-standalone-02:~$ pwd
+/home/neo4j
+neo4j@demo-standalone-02:~$ bin/neo4j-admin backup --backup-dir=/mnt/neo4j/backups --database=bak1
+Selecting JVM - Version:11.0.14.1+1-Ubuntu-0ubuntu1.18.04, Name:OpenJDK 64-Bit Server VM, Vendor:Ubuntu
+2022-04-03 08:45:05.212+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store files
+2022-04-03 08:45:05.215+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/bak1/neostore.nodestore.db.labels
+2022-04-03 08:45:05.240+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/bak1/neostore.nodestore.db.labels
+2022-04-03 08:45:05.241+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/bak1/neostore.nodestore.db
+2022-04-03 08:45:05.254+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/bak1/neostore.nodestore.db
+2022-04-03 08:45:05.255+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/bak1/neostore.propertystore.db.index.keys
+2022-04-03 08:45:05.266+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/bak1/neostore.propertystore.db.index.keys
+2022-04-03 08:45:05.267+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/bak1/neostore.propertystore.db.index
+2022-04-03 08:45:05.302+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/bak1/neostore.propertystore.db.index
+2022-04-03 08:45:05.302+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/bak1/neostore.propertystore.db.strings
+2022-04-03 08:45:05.316+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/bak1/neostore.propertystore.db.strings
+2022-04-03 08:45:05.316+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/bak1/neostore.propertystore.db.arrays
+2022-04-03 08:45:05.324+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/bak1/neostore.propertystore.db.arrays
+2022-04-03 08:45:05.325+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/bak1/neostore.propertystore.db
+2022-04-03 08:45:05.418+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/bak1/neostore.propertystore.db
+2022-04-03 08:45:05.419+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/bak1/neostore.relationshipstore.db
+2022-04-03 08:45:05.430+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/bak1/neostore.relationshipstore.db
+2022-04-03 08:45:05.431+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/bak1/neostore.relationshiptypestore.db.names
+2022-04-03 08:45:05.440+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/bak1/neostore.relationshiptypestore.db.names
+2022-04-03 08:45:05.441+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/bak1/neostore.relationshiptypestore.db
+2022-04-03 08:45:05.449+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/bak1/neostore.relationshiptypestore.db
+2022-04-03 08:45:05.449+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/bak1/neostore.labeltokenstore.db.names
+2022-04-03 08:45:05.458+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/bak1/neostore.labeltokenstore.db.names
+2022-04-03 08:45:05.458+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/bak1/neostore.labeltokenstore.db
+2022-04-03 08:45:05.466+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/bak1/neostore.labeltokenstore.db
+2022-04-03 08:45:05.467+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/bak1/neostore.schemastore.db
+2022-04-03 08:45:05.472+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/bak1/neostore.schemastore.db
+2022-04-03 08:45:05.473+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/bak1/neostore.relationshipgroupstore.db
+2022-04-03 08:45:05.478+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/bak1/neostore.relationshipgroupstore.db
+2022-04-03 08:45:05.479+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/bak1/neostore
+2022-04-03 08:45:05.484+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/bak1/neostore
+2022-04-03 08:45:05.521+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store files, took 305ms
+2022-04-03 08:45:05.832+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving transactions from 315
+2022-04-03 08:45:06.085+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving transactions at 316, took 253ms
+2022-04-03 08:45:06.105+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start recovering store
+2022-04-03 08:45:07.041+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish recovering store, took 935ms
+Index structure consistency check
+....................  10%
+....................  20%
+....................  30%
+....................  40%
+....................  50%
+....................  60%
+....................  70%
+....................  80%
+....................  90%
+.................... 100%
+Consistency check
+....................  10%
+....................  20%
+....................  30%
+....................  40%
+....................  50%
+....................  60%
+....................  70%
+....................  80%
+....................  90%
+.................... 100%
+2022-04-03 08:45:10.062+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finished, took 5s 400ms
+Backup complete successful.
+neo4j@demo-standalone-02:~$
+
+
+
+
+B.INCREMENTAL BACKUP
+
+Run subsequent backup on the same database
+ ./neo4j-admin backup --backup-dir=/mnt/neo4j/backups --database=initialdata
+
+
+Output subsequent backup will be faster:
+neo4j@pegadaian-gds:~/neo4j/bin$ ./neo4j-admin backup --backup-dir=/mnt/neo4j/backups --database=sampledat
+Selecting JVM - Version:11.0.15+10-Ubuntu-0ubuntu0.18.04.1, Name:OpenJDK 64-Bit Server VM, Vendor:Private Build
+2022-06-12 13:09:57.614+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store files
+2022-06-12 13:09:57.619+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/sampledat/neostore.nodestore.db.labels
+2022-06-12 13:09:57.645+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/sampledat/neostore.nodestore.db.labels
+2022-06-12 13:09:57.645+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/sampledat/neostore.nodestore.db
+2022-06-12 13:09:57.653+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/sampledat/neostore.nodestore.db
+2022-06-12 13:09:57.654+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/sampledat/neostore.propertystore.db.index.keys
+2022-06-12 13:09:57.661+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/sampledat/neostore.propertystore.db.index.keys
+2022-06-12 13:09:57.661+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/sampledat/neostore.propertystore.db.index
+2022-06-12 13:09:57.669+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/sampledat/neostore.propertystore.db.index
+2022-06-12 13:09:57.670+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/sampledat/neostore.propertystore.db.strings
+2022-06-12 13:09:57.677+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/sampledat/neostore.propertystore.db.strings
+2022-06-12 13:09:57.677+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/sampledat/neostore.propertystore.db.arrays
+2022-06-12 13:09:57.687+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/sampledat/neostore.propertystore.db.arrays
+2022-06-12 13:09:57.687+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/sampledat/neostore.propertystore.db
+2022-06-12 13:09:57.698+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/sampledat/neostore.propertystore.db
+2022-06-12 13:09:57.699+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/sampledat/neostore.relationshipstore.db
+2022-06-12 13:09:57.709+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/sampledat/neostore.relationshipstore.db
+2022-06-12 13:09:57.709+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/sampledat/neostore.relationshiptypestore.db.names
+2022-06-12 13:09:57.718+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/sampledat/neostore.relationshiptypestore.db.names
+2022-06-12 13:09:57.719+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/sampledat/neostore.relationshiptypestore.db
+2022-06-12 13:09:57.727+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/sampledat/neostore.relationshiptypestore.db
+2022-06-12 13:09:57.727+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/sampledat/neostore.labeltokenstore.db.names
+2022-06-12 13:09:57.735+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/sampledat/neostore.labeltokenstore.db.names
+2022-06-12 13:09:57.735+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/sampledat/neostore.labeltokenstore.db
+2022-06-12 13:09:57.744+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/sampledat/neostore.labeltokenstore.db
+2022-06-12 13:09:57.744+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/sampledat/neostore.schemastore.db
+2022-06-12 13:09:57.752+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/sampledat/neostore.schemastore.db
+2022-06-12 13:09:57.753+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/sampledat/neostore.relationshipgroupstore.db
+2022-06-12 13:09:57.761+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/sampledat/neostore.relationshipgroupstore.db
+2022-06-12 13:09:57.761+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving store file /mnt/neo4j/backups/sampledat/neostore
+2022-06-12 13:09:57.769+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store file /mnt/neo4j/backups/sampledat/neostore
+2022-06-12 13:09:57.773+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving store files, took 154ms
+2022-06-12 13:09:58.131+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start receiving transactions from 161
+2022-06-12 13:09:58.553+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish receiving transactions at 162, took 421ms
+2022-06-12 13:09:58.576+0000 INFO  [c.n.b.v.BackupOutputMonitor] Start recovering store
+2022-06-12 13:10:00.163+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finish recovering store, took 1s 587ms
+Index structure consistency check
+....................  10%
+....................  20%
+....................  30%
+....................  40%
+....................  50%
+....................  60%
+....................  70%
+....................  80%
+....................  90%
+.................... 100%
+Consistency check
+....................  10%
+....................  20%
+....................  30%
+....................  40%
+....................  50%
+....................  60%
+....................  70%
+....................  80%
+....................  90%
+.................... 100%
+2022-06-12 13:10:00.752+0000 INFO  [c.n.b.v.BackupOutputMonitor] Finished, took 3s 775ms
+Backup complete successful.
+
+
+3.2 OFFLINE BACKUP
+
+Create backups folder if not created yet.
+$ mkdir /mnt/neo4j/dumps
+
+Go to neo4j HOME
+$ cd /home/neo4j
+
+###STOP the database for OFFLINE backup.
+
+In Neo4j Browser
+system$ stop database initialdata;
+
+
+
+Run database dump
+$ sudo ./neo4j-admin dump --database=initialdata --to=/mnt/neo4j/dumps/initialdata-11062022.dump
+
+
+Output
+
+neo4j@pegadaian-gds:~/neo4j/bin$ ./neo4j-admin dump --database=initialdata --to=/mnt/neo4j/dumps/initialdata-11062022.dump
+Selecting JVM - Version:11.0.15+10-Ubuntu-0ubuntu0.18.04.1, Name:OpenJDK 64-Bit Server VM, Vendor:Private Build
+Done: 520 files, 145.4GiB processed.
+
+
+
+
+4. RESTORE
+4.1 RESTORE FROM BACKUP
+Restore a database from backup..
+
+Ensure the database is OFFLINE.
+
+In Neo4j Browser
+system$ stop database initialdata;
+
+
+
+
+Go to neo4j HOME
+$ cd /home/neo4j
+
+
+Run database load
+
+./neo4j-admin prepare-restore --target=/mnt/neo4j/backups/sampledat
+
+
+./neo4j-admin prepare-restore --target=/mnt/neo4j/backups/sampledat
+./neo4j-admin restore --from=/mnt/neo4j/backups/sampledat --database=sampledat1 --force
+
+
+Output
+
+neo4j@pegadaian-gds:~/neo4j/bin$ ./neo4j-admin restore --from=/mnt/neo4j/backups/sampledat --database=sampledat1
+Selecting JVM - Version:11.0.15+10-Ubuntu-0ubuntu0.18.04.1, Name:OpenJDK 64-Bit Server VM, Vendor:Private Build
+restorePath=/mnt/neo4j/backups/sampledat, restoreStatus=successful, reason=
+
+
+
+
+
+
+In Neo4j Browser
+
+$ create DATABASE sampledat1;
+
+
+
+
+Verify the restored database.
+
+
+
+4.2 RESTORE FROM DUMP
+Restore a database backup from a DUMP file.
+
+Go to neo4j HOME
+$ cd /home/neo4j
+
+
+Run database load
+$ ./neo4j-admin load --from=/mnt/neo4j/dumps/initialdata-11062022.dump --database=initialdata1
+
+
+Output
+
+neo4j@pegadaian-gds:~/neo4j/bin$ ./neo4j-admin load --from=/mnt/neo4j/dumps/initialdata-11062022.dump --database=initialdata2
+Selecting JVM - Version:11.0.15+10-Ubuntu-0ubuntu0.18.04.1, Name:OpenJDK 64-Bit Server VM, Vendor:Private Build
+Done: 520 files, 145.4GiB processed.
+
+
+
+
+
+Create a database we just loaded. If we are replacing an existing database, use –force on the load command above.
+
+In Neo4j Browser
+$ CREATE DATABASE initaldata2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
